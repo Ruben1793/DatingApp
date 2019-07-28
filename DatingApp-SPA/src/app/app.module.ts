@@ -15,6 +15,7 @@ import { AlertifyService } from './_services/alertify.service';
 import { MemberListComponent } from './member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { appRoutes } from './routes';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { MessagesComponent } from './messages/messages.component';
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [
       AuthService,
