@@ -6,7 +6,8 @@ export interface User {
     knownAs: string;
     age: number;
     gender: string;
-    create: Date;
+    lastActive: Date;
+    created: Date;
     photoUrl: string;
     city: string;
     country: string;
