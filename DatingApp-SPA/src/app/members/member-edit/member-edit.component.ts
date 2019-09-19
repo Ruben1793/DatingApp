@@ -23,7 +23,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
-     private authServce: AuthService, private userService: UserService) { }
+     private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -33,7 +33,7 @@ export class MemberEditComponent implements OnInit {
 
   updateUser(){
     console.log(this.user);
-    this.userService.updateUser(this.authServce.decodedtoken.nameid, this.user).subscribe(next => {
+    this.userService.updateUser(this.authService.decodedtoken.nameid, this.user).subscribe(next => {
       this.alertify.success('Profile Updated Successfully');
       this.editForm.reset(this.user);
     }, error => {
