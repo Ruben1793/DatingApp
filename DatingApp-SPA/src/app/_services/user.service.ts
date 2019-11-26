@@ -13,7 +13,7 @@ export class UserService {
   baseUrl =  environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  getUsers(page?, itesmPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+  getUsers(page?, itesmPerPage?, userParams?, likesParam?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let params = new HttpParams();
     if(page!=null && itesmPerPage!=null){
@@ -27,6 +27,12 @@ export class UserService {
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
     }
+    if(likesParam == 'Likers') {
+      params = params.append('likers', 'true');
+    }
+    if(likesParam == 'Likees') {
+      params = params.append('likees', 'true');
+     }
     return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
     .pipe(
       map(response => {
