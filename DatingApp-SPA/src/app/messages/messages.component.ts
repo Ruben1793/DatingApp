@@ -5,6 +5,7 @@ import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-messages',
@@ -35,6 +36,18 @@ export class MessagesComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       });
+  }
+
+  deleteMessages(event: any, id: number) {
+    this.alertify.confirm('Are you sure you want to delete this message?', () => {
+      this.userService.deleteMessage(id, this.authService.decodedtoken.nameid).subscribe(() => {
+        this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
+        this.alertify.success('Message has been deleted');
+      }, error => {
+        this.alertify.error('Failed to delete message');
+      });
+    });
+    event.stopPropagation();
   }
 
   pageChanged(event: any) : void {
